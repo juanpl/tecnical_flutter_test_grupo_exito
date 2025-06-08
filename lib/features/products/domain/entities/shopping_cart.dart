@@ -1,16 +1,27 @@
+import 'package:tecnical_flutter_test_grupo_exito/features/products/domain/entities/product.dart';
+
 class ShoppingCart {
   
-  final int productId;
-  final String name;
-  final String image;
-  final int quantity;
-  final double totalPrice;
+  final List<ShoppingCartProduct> productList;
+  final double totalShoppingCartPrice;
 
   ShoppingCart({
-    required this.productId, 
-    required this.name, 
-    required this.image, 
-    required this.quantity, 
-    required this.totalPrice
+    required this.productList,
+    required this.totalShoppingCartPrice
   });
+
+}
+
+class ShoppingCartProduct {
+
+  final Product product;
+  final int quitity;
+  final double totalProductPrice;
+
+  ShoppingCartProduct({
+    required this.product, 
+    required this.quitity, 
+    required this.totalProductPrice
+  }); 
+
 }
