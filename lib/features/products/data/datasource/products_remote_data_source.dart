@@ -8,9 +8,9 @@ import 'package:tecnical_flutter_test_grupo_exito/features/products/data/models/
 import 'package:tecnical_flutter_test_grupo_exito/features/products/domain/entities/entities.dart';
 
 abstract class ProductsRemoteDataSource {
-  Future<Either<Failure, List<CategoryModel>>> getCategoryList();
-  Future<Either<Failure,List<Product>>> getProductList(int categoryId);
-  Future<Either<Failure,ProductModel>> getProductInfo(int productId);
+  Future<List<CategoryModel>> getCategoryList();
+  Future<List<Product>> getProductList(int categoryId);
+  Future<ProductModel> getProductInfo(int productId);
 }
 
 class ProductsAPIsSourceImpl implements ProductsRemoteDataSource {
@@ -18,68 +18,68 @@ class ProductsAPIsSourceImpl implements ProductsRemoteDataSource {
   final Dio dio = Dio(); 
 
   @override
-  Future<Either<Failure, List<CategoryModel>>> getCategoryList() async {
+  Future<List<CategoryModel>> getCategoryList() async {
     try {
 
       final resp = await dio.get('https://api.escuelajs.co/api/v1/categories');
       final categories = (resp.data as List)
           .map((json) => CategoryModel.fromJson(json))
           .toList();
-      return Right(categories);
+      return categories;
 
     } on DioException catch (e) {
       if (e.response?.statusCode != null &&
           e.response!.statusCode! >= 500 &&
           e.response!.statusCode! < 600) {
-        return Left(ServerFailure());
+        throw ServerFailure();
       } else {
-        return Left(NetworkFailure());
+        throw NetworkFailure();
       }
     } catch (e) {
-      return Left(UnexpectedError());
+      throw UnexpectedError();
     }
   }
 
   @override
-  Future<Either<Failure,ProductModel>> getProductInfo(int productId) async {
+  Future<ProductModel> getProductInfo(int productId) async {
     try {
 
       final resp = await dio.get('https://api.escuelajs.co/api/v1/products/$productId');
       final product = ProductModel.fromJson(resp);
-      return Right(product);  
+      return product;  
 
     } on DioException catch (e) {
         if (e.response?.statusCode != null &&
             e.response!.statusCode! >= 500 &&
             e.response!.statusCode! < 600) {
-          return Left(ServerFailure());
+          throw ServerFailure();
         } else {
-          return Left(NetworkFailure());
+          throw  Left(NetworkFailure());
         }
     } catch (e) {
-      return Left(UnexpectedError());
+      throw Left(UnexpectedError());
     }
   }
 
   @override
-  Future<Either<Failure,List<ProductModel>>> getProductList(int categoryId) async {
+  Future<List<ProductModel>> getProductList(int categoryId) async {
     try {
       final resp = await dio.get('https://api.escuelajs.co/api/v1/products/?categoryId=$categoryId&limit=5&offset=0');
       final products = (resp.data as List)
           .map((json) => ProductModel.fromJson(json))
           .toList();
-      return Right(products);  
+      return products;  
 
     } on DioException catch (e) {
         if (e.response?.statusCode != null &&
             e.response!.statusCode! >= 500 &&
             e.response!.statusCode! < 600) {
-          return Left(ServerFailure());
+          throw Left(ServerFailure());
         } else {
-          return Left(NetworkFailure());
+          throw Left(NetworkFailure());
         }
     } catch (e) {
-      return Left(UnexpectedError());
+      throw Left(UnexpectedError());
     }
   }
   

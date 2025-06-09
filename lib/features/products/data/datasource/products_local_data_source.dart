@@ -12,14 +12,14 @@ import 'package:tecnical_flutter_test_grupo_exito/features/products/domain/use_c
 
 abstract class ProductsLocalDataSource {
 
-  Future<Either<Failure, ShoppingCart>> getShoppingCartInfo();
-  Future<Either<Failure, ShoppingCart>> getExpressShoppingCartInfo();
-  Future<Either<Failure, bool>> addProductToShoppingCart(Product product); 
-  Future<Either<Failure, bool>> removeProductFromShoppingCart(Product product);
-  Future<Either<Failure, bool>> addProductToExpressShoppingCart(Product product); 
-  Future<Either<Failure, bool>> removeProductFromExpressShoppingCart(Product product);
-  Future<Either<Failure, bool>> cleanShoppingCart();
-  Future<Either<Failure, bool>> cleanExpressShoppingCart();
+  Future<ShoppingCart> getShoppingCartInfo();
+  Future<ShoppingCart> getExpressShoppingCartInfo();
+  Future<bool> addProductToShoppingCart(Product product); 
+  Future<bool> removeProductFromShoppingCart(Product product);
+  Future<bool> addProductToExpressShoppingCart(Product product); 
+  Future<bool> removeProductFromExpressShoppingCart(Product product);
+  Future<bool> cleanShoppingCart();
+  Future<bool> cleanExpressShoppingCart();
 
 }
 
@@ -134,7 +134,7 @@ class ProductsSqliteDataSourceImpl extends ProductsLocalDataSource {
 
 
   @override
-  Future<Either<Failure, bool>> addProductToExpressShoppingCart(Product product) async{
+  Future<bool> addProductToExpressShoppingCart(Product product) async{
     final  existingProduct = await checkExistingProduct(product.productId, 'ShoppingExpressCart');
 
     if(existingProduct == true){
@@ -142,25 +142,26 @@ class ProductsSqliteDataSourceImpl extends ProductsLocalDataSource {
       ShoppingCartProduct shoppingCartProduct = await loadProductDatabase(product.productId, 'ShoppingExpressCart');
       int updValue = await productUpdate(product.productId, 'ShoppingExpressCart', shoppingCartProduct.quitity, 1);
       if(updValue>0){
-        return Right(true);
+        return true;
       } else {
-        return Left(SaveLocalDataError());
+        throw SaveLocalDataError();
       }
 
     } else {
         final userId = await addNewProductToDataBase(product, 'ShoppingExpressCart');
         if(userId>0){
-          return Right(true);
+          return true;
         }
         else {
-          return Left(SaveLocalDataError());
+          throw SaveLocalDataError();
         }
     }
+
   }
 
 
   @override
-  Future<Either<Failure, bool>> addProductToShoppingCart(Product product) async{
+  Future<bool> addProductToShoppingCart(Product product) async{
     final  existingProduct = await checkExistingProduct(product.productId, 'ShoppingCart');
 
     if(existingProduct == true){
@@ -168,46 +169,46 @@ class ProductsSqliteDataSourceImpl extends ProductsLocalDataSource {
       ShoppingCartProduct shoppingCartProduct = await loadProductDatabase(product.productId, 'ShoppingCart');
       int updValue = await productUpdate(product.productId, 'ShoppingCart', shoppingCartProduct.quitity, 1);
       if(updValue>0){
-        return Right(true);
+        return true;
       } else {
-        return Left(SaveLocalDataError());
+        throw SaveLocalDataError();
       }
 
     } else {
         final userId = await addNewProductToDataBase(product, 'ShoppingCart');
         if(userId>0){
-          return Right(true);
+          return true;
         }
         else {
-          return Left(SaveLocalDataError());
+          return throw SaveLocalDataError();
         }
     }
   }
 
   @override
-  Future<Either<Failure, bool>> cleanExpressShoppingCart() async{
+  Future<bool> cleanExpressShoppingCart() async{
     final db = await database;
     int deletedCount = await db!.delete('ShoppingExpressCart');
     if(deletedCount>0){
-      return Right(true);
+      return true;
     } else {
-      return Left(DeleteLocalDataError());
+      throw DeleteLocalDataError();
     }
   }
 
   @override
-  Future<Either<Failure, bool>> cleanShoppingCart() async{
+  Future<bool> cleanShoppingCart() async{
     final db = await database;
     int deletedCount = await db!.delete('ShoppingCart');
     if(deletedCount>0){
-      return Right(true);
+      return true;
     } else {
-      return Left(DeleteLocalDataError());
+      return throw DeleteLocalDataError();
     }
   }
 
   @override
-  Future<Either<Failure, ShoppingCart>> getExpressShoppingCartInfo() async{
+  Future<ShoppingCart> getExpressShoppingCartInfo() async{
     final db = await database;
     final results = await db!.query('ShoppingExpressCart');
     final List<ShoppingCartProdutModel> products = results.map((json) => ShoppingCartProdutModel.fromJson(json)).toList();
@@ -225,14 +226,14 @@ class ProductsSqliteDataSourceImpl extends ProductsLocalDataSource {
     );
  
     if(results!=null){
-      return Right(shoppingCart);
+      return shoppingCart;
     } else {
-      return Left(DeleteLocalDataError());
+      throw DeleteLocalDataError();
     }
   }
 
   @override
-  Future<Either<Failure, ShoppingCart>> getShoppingCartInfo() async{
+  Future<ShoppingCart> getShoppingCartInfo() async{
     final db = await database;
     final results = await db!.query('ShoppingCart');
     final List<ShoppingCartProdutModel> products = results.map((json) => ShoppingCartProdutModel.fromJson(json)).toList();
@@ -250,14 +251,14 @@ class ProductsSqliteDataSourceImpl extends ProductsLocalDataSource {
     );
  
     if(results!=null){
-      return Right(shoppingCart);
+      return shoppingCart;
     } else {
-      return Left(DeleteLocalDataError());
+      throw DeleteLocalDataError();
     }
   }
 
   @override
-  Future<Either<Failure, bool>> removeProductFromExpressShoppingCart(Product product) async{
+  Future<bool> removeProductFromExpressShoppingCart(Product product) async{
     final  existingProduct = await checkExistingProduct(product.productId, 'ShoppingExpressCart');
 
     if(existingProduct == true){
@@ -265,24 +266,24 @@ class ProductsSqliteDataSourceImpl extends ProductsLocalDataSource {
       ShoppingCartProduct shoppingCartProduct = await loadProductDatabase(product.productId, 'ShoppingExpressCart');
       int updValue = await productUpdate(product.productId, 'ShoppingExpressCart', shoppingCartProduct.quitity, -1);
       if(updValue>0){
-        return Right(true);
+        return true;
       } else {
-        return Left(SaveLocalDataError());
+        throw SaveLocalDataError();
       }
 
     } else {
         final userId = await addNewProductToDataBase(product, 'ShoppingExpressCart');
         if(userId>0){
-          return Right(true);
+          return true;
         }
         else {
-          return Left(SaveLocalDataError());
+          throw SaveLocalDataError();
         }
     }
   }
 
   @override
-  Future<Either<Failure, bool>> removeProductFromShoppingCart(Product product) async{
+  Future<bool> removeProductFromShoppingCart(Product product) async{
     final  existingProduct = await checkExistingProduct(product.productId, 'ShoppingCart');
 
     if(existingProduct == true){
@@ -290,18 +291,18 @@ class ProductsSqliteDataSourceImpl extends ProductsLocalDataSource {
       ShoppingCartProduct shoppingCartProduct = await loadProductDatabase(product.productId, 'ShoppingCart');
       int updValue = await productUpdate(product.productId, 'ShoppingCart', shoppingCartProduct.quitity, -1);
       if(updValue>0){
-        return Right(true);
+        return true;
       } else {
-        return Left(SaveLocalDataError());
+        throw SaveLocalDataError();
       }
 
     } else {
         final userId = await addNewProductToDataBase(product, 'ShoppingCart');
         if(userId>0){
-          return Right(true);
+          return true;
         }
         else {
-          return Left(SaveLocalDataError());
+          throw SaveLocalDataError();
         }
     }
   }

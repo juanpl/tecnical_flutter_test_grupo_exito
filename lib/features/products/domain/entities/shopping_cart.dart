@@ -1,4 +1,3 @@
-import 'package:tecnical_flutter_test_grupo_exito/features/products/domain/entities/product.dart';
 
 class ShoppingCart {
   
@@ -29,5 +28,5 @@ class ShoppingCartProduct {
     required this.price, 
     required this.quitity
   });
-  
+
 }
