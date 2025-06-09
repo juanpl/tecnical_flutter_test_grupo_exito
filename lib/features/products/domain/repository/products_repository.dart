@@ -11,10 +11,10 @@ abstract class ProductsRepository {
   Future<Either<Failure, Product>> getProductInfo(int productId);
   Future<Either<Failure, ShoppingCart>> getShoppingCartInfo();
   Future<Either<Failure, ShoppingCart>> getExpressShoppingCartInfo();
-  Future<Either<Failure, bool>> addProductToShoppingCart(int productId); 
-  Future<Either<Failure, bool>> removeProductFromShoppingCart(int productId);
-  Future<Either<Failure, bool>> addProductToExpressShoppingCart(int productId); 
-  Future<Either<Failure, bool>> removeProductFromExpressShoppingCart(int productId);
+  Future<Either<Failure, bool>> addProductToShoppingCart(Product product); 
+  Future<Either<Failure, bool>> removeProductFromShoppingCart(Product product);
+  Future<Either<Failure, bool>> addProductToExpressShoppingCart(Product product); 
+  Future<Either<Failure, bool>> removeProductFromExpressShoppingCart(Product product);
   Future<Either<Failure, bool>> cleanShoppingCart();
   Future<Either<Failure, bool>> cleanExpressShoppingCart();
 

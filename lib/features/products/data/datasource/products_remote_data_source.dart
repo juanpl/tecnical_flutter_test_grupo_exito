@@ -8,15 +8,12 @@ import 'package:tecnical_flutter_test_grupo_exito/features/products/data/models/
 import 'package:tecnical_flutter_test_grupo_exito/features/products/domain/entities/entities.dart';
 
 abstract class ProductsRemoteDataSource {
-
   Future<Either<Failure, List<CategoryModel>>> getCategoryList();
   Future<Either<Failure,List<Product>>> getProductList(int categoryId);
   Future<Either<Failure,ProductModel>> getProductInfo(int productId);
-
 }
 
-
-class ProdcutsAPIsSourceImpl implements ProductsRemoteDataSource {
+class ProductsAPIsSourceImpl implements ProductsRemoteDataSource {
   
   final Dio dio = Dio(); 
 
