@@ -1,4 +1,3 @@
-import 'package:tecnical_flutter_test_grupo_exito/features/products/domain/entities/product.dart';
 
 class ShoppingCart {
   
@@ -14,14 +13,20 @@ class ShoppingCart {
 
 class ShoppingCartProduct {
 
-  final Product product;
+  final int productId;
+  final String name;
+  final String image;
+  final String category;
+  final double price;
   final int quitity;
-  final double totalProductPrice;
 
   ShoppingCartProduct({
-    required this.product, 
-    required this.quitity, 
-    required this.totalProductPrice
-  }); 
+    required this.productId, 
+    required this.name, 
+    required this.image, 
+    required this.category, 
+    required this.price, 
+    required this.quitity
+  });
 
 }
