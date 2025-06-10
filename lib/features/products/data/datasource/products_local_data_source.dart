@@ -55,7 +55,7 @@ class ProductsSqliteDataSourceImpl extends ProductsLocalDataSource {
             name TEXT,
             image TEXT,
             category TEXT,
-            price REAL,
+            price INTEGER,
             quntity INTEGER,
           )
         ''');
@@ -67,7 +67,7 @@ class ProductsSqliteDataSourceImpl extends ProductsLocalDataSource {
             name TEXT,
             image TEXT,
             category TEXT,
-            price REAL,
+            price INTEGER,
             quntity INTEGER,
           )
         ''');

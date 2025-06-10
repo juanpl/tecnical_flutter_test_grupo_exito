@@ -62,7 +62,7 @@ class ScreenWidget extends StatelessWidget {
             crossAxisCount: 2,
             mainAxisSpacing: 12,
             crossAxisSpacing: 12,
-            childAspectRatio: 3/4,
+            childAspectRatio: 2/4,
           ),
           itemBuilder: (context, index) {
             return ProductsCategoryCardWidget(product: categoryProductsProvider.products[index]);

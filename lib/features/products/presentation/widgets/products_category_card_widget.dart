@@ -35,7 +35,46 @@ class ProductsCategoryCardWidget extends StatelessWidget {
               product.name,
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
-          )
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              '\$${product.price}',
+              style: const TextStyle(
+                color: Colors.red, 
+                fontWeight: FontWeight.bold,
+                fontSize: 20
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.deepOrange,
+                elevation: 0,
+              ),
+              child: Text("Agregar", style: TextStyle(color: Colors.white),),
+              onPressed: () {},
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  onPressed: () {}, 
+                  icon: Icon(Icons.do_not_disturb_on_outlined),
+                ),
+                Text('2 und'),
+                IconButton(
+                  onPressed: () {}, 
+                  icon: Icon(Icons.add_circle_outline_rounded),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
