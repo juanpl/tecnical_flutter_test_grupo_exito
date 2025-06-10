@@ -28,7 +28,8 @@ void main() {
         expect(categories, isNotEmpty);
         expect(categories.first.name, isNotEmpty); 
         expect(categories.first.name, 'Clothes');
-        expect(categories.length, 14);
+        expect(categories.first.categoryId, 1);
+        expect(categories.length, 11);
       },
     );
   });
