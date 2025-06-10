@@ -74,12 +74,12 @@ class ProductsAPIsSourceImpl implements ProductsRemoteDataSource {
         if (e.response?.statusCode != null &&
             e.response!.statusCode! >= 500 &&
             e.response!.statusCode! < 600) {
-          throw Left(ServerFailure());
+          throw ServerFailure();
         } else {
-          throw Left(NetworkFailure());
+          throw NetworkFailure();
         }
     } catch (e) {
-      throw Left(UnexpectedError());
+      throw UnexpectedError();
     }
   }
   

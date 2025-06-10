@@ -4,6 +4,7 @@ class Category {
   final String name;
   final String image;
 
+
   Category({
     required this.categoryId, 
     required this.name, 
