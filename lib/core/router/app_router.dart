@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
+import 'package:tecnical_flutter_test_grupo_exito/features/products/domain/use_cases/get_product_list.dart';
 import 'package:tecnical_flutter_test_grupo_exito/features/products/presentation/screens/categories_screen.dart';
-import 'package:tecnical_flutter_test_grupo_exito/features/products/presentation/screens/products_category_screen.dart';
+import 'package:tecnical_flutter_test_grupo_exito/features/products/presentation/screens/category_products_screen.dart';
 import 'package:tecnical_flutter_test_grupo_exito/inyection.dart';
 
 final appRouter = GoRouter(
@@ -15,11 +16,16 @@ final appRouter = GoRouter(
 
     GoRoute(
       path: '/products_category',
-      name: ProductsCategoryScreen.name,
+      name: CategoryProductsScreen.name,
       builder: (context, state) {
         final String? categoryId = state.uri.queryParameters['categoryId'];
+        final String? name = state.uri.queryParameters['categoryName'];
         final int? id = int.tryParse(categoryId ?? '');
-        return ProductsCategoryScreen(categoryId: id);
+        return CategoryProductsScreen(
+          categoryName: name,
+          categoryId: id,
+          getProductListUseCase: getProductListUseCase,
+        );
       }, 
     ),
 

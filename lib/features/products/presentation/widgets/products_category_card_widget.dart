@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tecnical_flutter_test_grupo_exito/features/products/domain/entities/entities.dart';
 
-class CategoryCardWidget extends StatelessWidget {
-  final Category category;
+class ProductsCategoryCardWidget extends StatelessWidget {
+  final Product product;
 
-  const CategoryCardWidget({super.key, required this.category});
+  const ProductsCategoryCardWidget({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class CategoryCardWidget extends StatelessWidget {
             child: ClipRRect(
               borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
               child: Image.network(
-                category.image,
+                product.image,
                 fit: BoxFit.cover,
                 width: double.infinity,
                 loadingBuilder: (context, child, progress) {
@@ -32,7 +32,7 @@ class CategoryCardWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              category.name,
+              product.name,
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           )

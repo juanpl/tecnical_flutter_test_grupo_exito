@@ -6,16 +6,17 @@ import 'package:tecnical_flutter_test_grupo_exito/features/products/domain/use_c
 class CategoriesProvider extends ChangeNotifier {
   
   final GetCategoryListUseCase _getCategoryListUseCase;
+  
 
   CategoriesProvider({required GetCategoryListUseCase getCategoryListUseCase}) : _getCategoryListUseCase = getCategoryListUseCase {
-    this.setCategoryItem();
+    this.getCategoryItems();
   }
 
   List<Category> categories =[];
   bool isLoading = false;
   String? errorMessage;
 
-  Future<void> setCategoryItem() async {
+  Future<void> getCategoryItems() async {
     isLoading = true;
     errorMessage = null;
     notifyListeners();

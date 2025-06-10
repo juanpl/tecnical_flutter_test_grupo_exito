@@ -7,7 +7,7 @@ import 'package:tecnical_flutter_test_grupo_exito/features/products/data/reposit
 import 'package:tecnical_flutter_test_grupo_exito/features/products/domain/entities/category.dart';
 import 'package:tecnical_flutter_test_grupo_exito/features/products/domain/use_cases/get_category_list.dart';
 import 'package:tecnical_flutter_test_grupo_exito/features/products/presentation/providers/categories_provider.dart';
-import 'package:tecnical_flutter_test_grupo_exito/features/products/presentation/screens/products_category_screen.dart';
+import 'package:tecnical_flutter_test_grupo_exito/features/products/presentation/screens/category_products_screen.dart';
 import 'package:tecnical_flutter_test_grupo_exito/features/products/presentation/widgets/category_card_widget.dart';
 import 'package:tecnical_flutter_test_grupo_exito/features/products/presentation/widgets/custom_app_bar.dart';
 import 'package:tecnical_flutter_test_grupo_exito/features/products/presentation/widgets/loading_widget.dart';
@@ -62,14 +62,15 @@ class Categories extends StatelessWidget {
             return InkWell(
               onTap: (){
                 context.pushNamed(
-                  ProductsCategoryScreen.name,
+                  CategoryProductsScreen.name,
                   queryParameters: {
-                    'categoryId': categoriesProvider.categories[index].categoryId.toString()
+                    'categoryId': categoriesProvider.categories[index].categoryId.toString(),
+                    'categoryName': categoriesProvider.categories[index].name
                   }
                 );
 
               },
-              child: CategoryCard(category: categoriesProvider.categories[index])
+              child: CategoryCardWidget(category: categoriesProvider.categories[index])
             );
           },
         ),
@@ -81,46 +82,7 @@ class Categories extends StatelessWidget {
   }
 }
 
-class CategoryCard extends StatelessWidget {
-  final Category category;
 
-  const CategoryCard({super.key, required this.category});
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 3,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: Column(
-        children: [
-          Expanded(
-            child: ClipRRect(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
-              child: Image.network(
-                category.image,
-                fit: BoxFit.cover,
-                width: double.infinity,
-                loadingBuilder: (context, child, progress) {
-                  if (progress == null) return child;
-                  return const Center(child: CircularProgressIndicator());
-                },
-                errorBuilder: (context, error, stackTrace) =>
-                    const Center(child: Icon(Icons.error)),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              category.name,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
 
 
 

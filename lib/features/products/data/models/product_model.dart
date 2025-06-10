@@ -14,9 +14,9 @@ class ProductModel extends Product {
   factory ProductModel.fromJson(json) {
     return ProductModel(
       productId: json['id'], 
-      name: json['name'], 
+      name: json['title'], 
       description: json['description'], 
-      image: json['images'].fisrt, 
+      image: json['images'][0], 
       category: json['category']['name'], 
       price: json['price']
     );

@@ -17,7 +17,7 @@ class ShoppingCartProduct {
   final String name;
   final String image;
   final String category;
-  final double price;
+  final int price;
   final int quitity;
 
   ShoppingCartProduct({
