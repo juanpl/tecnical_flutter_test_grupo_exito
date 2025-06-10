@@ -3,8 +3,13 @@ import 'package:tecnical_flutter_test_grupo_exito/features/products/domain/entit
 
 class ProductsCategoryCardWidget extends StatelessWidget {
   final Product product;
+  final Function(Product) addToShoppingCardFunction;
 
-  const ProductsCategoryCardWidget({super.key, required this.product});
+  const ProductsCategoryCardWidget({
+    super.key, 
+    required this.product,
+    required this.addToShoppingCardFunction
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +30,7 @@ class ProductsCategoryCardWidget extends StatelessWidget {
                   return const Center(child: CircularProgressIndicator());
                 },
                 errorBuilder: (context, error, stackTrace) =>
-                    const Center(child: Icon(Icons.error)),
+                    const Center(child: Icon(Icons.no_photography, size: 100,)),
               ),
             ),
           ),
@@ -64,12 +69,15 @@ class ProductsCategoryCardWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconButton(
+                  
                   onPressed: () {}, 
                   icon: Icon(Icons.do_not_disturb_on_outlined),
                 ),
                 Text('2 und'),
                 IconButton(
-                  onPressed: () {}, 
+                  onPressed: () {
+                    addToShoppingCardFunction(product);
+                  }, 
                   icon: Icon(Icons.add_circle_outline_rounded),
                 ),
               ],

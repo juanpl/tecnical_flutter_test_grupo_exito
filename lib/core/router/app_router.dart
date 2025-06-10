@@ -22,9 +22,11 @@ final appRouter = GoRouter(
         final String? name = state.uri.queryParameters['categoryName'];
         final int? id = int.tryParse(categoryId ?? '');
         return CategoryProductsScreen(
+          addProductToShoppingCartUseCase: addProductToShoppingCartUseCase,
           categoryName: name,
           categoryId: id,
           getProductListUseCase: getProductListUseCase,
+          getShoppingCartInfoUseCase: getShoppingCartInfoUseCase,
         );
       }, 
     ),

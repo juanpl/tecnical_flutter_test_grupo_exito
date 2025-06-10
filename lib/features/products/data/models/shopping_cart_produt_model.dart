@@ -8,7 +8,7 @@ class ShoppingCartProdutModel extends ShoppingCartProduct {
     required super.image, 
     required super.category, 
     required super.price, 
-    required super.quitity
+    required super.quantity
   });
 
   factory ShoppingCartProdutModel.fromEntity(ShoppingCartProduct shoppingCartProduct){
@@ -18,7 +18,7 @@ class ShoppingCartProdutModel extends ShoppingCartProduct {
       image: shoppingCartProduct.image, 
       category: shoppingCartProduct.category, 
       price: shoppingCartProduct.price, 
-      quitity: shoppingCartProduct.quitity
+      quantity: shoppingCartProduct.quantity
     );
   }
 
@@ -29,7 +29,7 @@ class ShoppingCartProdutModel extends ShoppingCartProduct {
       image: json['image'],
       name: json['name'],
       price: json['price'],
-      quitity: json['quitity']
+      quantity: json['quantity']
     );
   }
 
@@ -40,7 +40,7 @@ class ShoppingCartProdutModel extends ShoppingCartProduct {
       'image' : image,
       'name': name,
       'price': price,
-      'quitity': quitity
+      'quantity': quantity
     };
   }
   

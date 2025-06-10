@@ -25,7 +25,7 @@ class CategoryCardWidget extends StatelessWidget {
                   return const Center(child: CircularProgressIndicator());
                 },
                 errorBuilder: (context, error, stackTrace) =>
-                    const Center(child: Icon(Icons.error)),
+                    const Center(child: Icon(Icons.no_photography, size: 100,)),
               ),
             ),
           ),

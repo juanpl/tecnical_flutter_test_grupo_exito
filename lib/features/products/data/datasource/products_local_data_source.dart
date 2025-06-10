@@ -56,7 +56,7 @@ class ProductsSqliteDataSourceImpl extends ProductsLocalDataSource {
             image TEXT,
             category TEXT,
             price INTEGER,
-            quntity INTEGER,
+            quantity INTEGER
           )
         ''');
 
@@ -68,7 +68,7 @@ class ProductsSqliteDataSourceImpl extends ProductsLocalDataSource {
             image TEXT,
             category TEXT,
             price INTEGER,
-            quntity INTEGER,
+            quantity INTEGER
           )
         ''');
       
@@ -94,7 +94,7 @@ class ProductsSqliteDataSourceImpl extends ProductsLocalDataSource {
         image: product.image, 
         category: product.category, 
         price: product.price, 
-        quitity: 1
+        quantity: 1
       );
 
       ShoppingCartProdutModel newProductModel = ShoppingCartProdutModel.fromEntity(newProduct); 
@@ -119,7 +119,7 @@ class ProductsSqliteDataSourceImpl extends ProductsLocalDataSource {
     if(result > 0){
 
       final db = await database;
-      final idProd = await db!.update(tableName, {'quntity': result}, where: 'productId = ?', whereArgs: [productId]);
+      final idProd = await db!.update(tableName, {'quantity': result}, where: 'productId = ?', whereArgs: [productId]);
       return idProd;
 
     } else {
@@ -140,7 +140,7 @@ class ProductsSqliteDataSourceImpl extends ProductsLocalDataSource {
     if(existingProduct == true){
 
       ShoppingCartProduct shoppingCartProduct = await loadProductDatabase(product.productId, 'ShoppingExpressCart');
-      int updValue = await productUpdate(product.productId, 'ShoppingExpressCart', shoppingCartProduct.quitity, 1);
+      int updValue = await productUpdate(product.productId, 'ShoppingExpressCart', shoppingCartProduct.quantity, 1);
       if(updValue>0){
         return true;
       } else {
@@ -167,7 +167,7 @@ class ProductsSqliteDataSourceImpl extends ProductsLocalDataSource {
     if(existingProduct == true){
 
       ShoppingCartProduct shoppingCartProduct = await loadProductDatabase(product.productId, 'ShoppingCart');
-      int updValue = await productUpdate(product.productId, 'ShoppingCart', shoppingCartProduct.quitity, 1);
+      int updValue = await productUpdate(product.productId, 'ShoppingCart', shoppingCartProduct.quantity, 1);
       if(updValue>0){
         return true;
       } else {
@@ -216,7 +216,7 @@ class ProductsSqliteDataSourceImpl extends ProductsLocalDataSource {
     double totalValue = 0;
 
     for(var product in products){
-      var totalProdutValue = product.price*product.quitity;
+      var totalProdutValue = product.price*product.quantity;
       totalValue = totalValue+totalProdutValue;
     }
 
@@ -241,7 +241,7 @@ class ProductsSqliteDataSourceImpl extends ProductsLocalDataSource {
     double totalValue = 0;
 
     for(var product in products){
-      var totalProdutValue = product.price*product.quitity;
+      var totalProdutValue = product.price*product.quantity;
       totalValue = totalValue+totalProdutValue;
     }
 
@@ -264,7 +264,7 @@ class ProductsSqliteDataSourceImpl extends ProductsLocalDataSource {
     if(existingProduct == true){
 
       ShoppingCartProduct shoppingCartProduct = await loadProductDatabase(product.productId, 'ShoppingExpressCart');
-      int updValue = await productUpdate(product.productId, 'ShoppingExpressCart', shoppingCartProduct.quitity, -1);
+      int updValue = await productUpdate(product.productId, 'ShoppingExpressCart', shoppingCartProduct.quantity, -1);
       if(updValue>0){
         return true;
       } else {
@@ -289,7 +289,7 @@ class ProductsSqliteDataSourceImpl extends ProductsLocalDataSource {
     if(existingProduct == true){
 
       ShoppingCartProduct shoppingCartProduct = await loadProductDatabase(product.productId, 'ShoppingCart');
-      int updValue = await productUpdate(product.productId, 'ShoppingCart', shoppingCartProduct.quitity, -1);
+      int updValue = await productUpdate(product.productId, 'ShoppingCart', shoppingCartProduct.quantity, -1);
       if(updValue>0){
         return true;
       } else {

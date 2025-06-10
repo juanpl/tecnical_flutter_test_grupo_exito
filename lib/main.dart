@@ -7,16 +7,13 @@ import 'package:tecnical_flutter_test_grupo_exito/features/products/domain/use_c
 import 'package:tecnical_flutter_test_grupo_exito/inyection.dart';
 
 void main() {
-
+  WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
-  runApp( MyApp(getCategoryListUseCase: getCategoryListUseCase));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-
-  final GetCategoryListUseCase getCategoryListUseCase;
-  const MyApp({required this.getCategoryListUseCase, super.key});
-
+  const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(

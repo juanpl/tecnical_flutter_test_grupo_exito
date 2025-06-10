@@ -18,7 +18,7 @@ class ShoppingCartProduct {
   final String image;
   final String category;
   final int price;
-  final int quitity;
+  final int quantity;
 
   ShoppingCartProduct({
     required this.productId, 
@@ -26,7 +26,7 @@ class ShoppingCartProduct {
     required this.image, 
     required this.category, 
     required this.price, 
-    required this.quitity
+    required this.quantity
   });
 
 }

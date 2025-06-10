@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tecnical_flutter_test_grupo_exito/features/products/domain/use_cases/add_product_to_shopping_cart.dart';
 import 'package:tecnical_flutter_test_grupo_exito/features/products/domain/use_cases/get_product_list.dart';
+import 'package:tecnical_flutter_test_grupo_exito/features/products/domain/use_cases/get_shopping_cart_info.dart';
 import 'package:tecnical_flutter_test_grupo_exito/features/products/presentation/providers/category_products_provider.dart';
 import 'package:tecnical_flutter_test_grupo_exito/features/products/presentation/widgets/custom_app_bar.dart';
 import 'package:tecnical_flutter_test_grupo_exito/features/products/presentation/widgets/loading_widget.dart';
@@ -10,6 +12,8 @@ class CategoryProductsScreen extends StatelessWidget {
   
   static const String name = 'category_products_screen';
   final GetProductListUseCase getProductListUseCase;
+  final AddProductToShoppingCartUseCase addProductToShoppingCartUseCase;
+  final GetShoppingCartInfoUseCase getShoppingCartInfoUseCase;
   final int? categoryId;
   final String? categoryName;
 
@@ -18,7 +22,9 @@ class CategoryProductsScreen extends StatelessWidget {
     super.key,
     this.categoryName, 
     this.categoryId, 
-    required this.getProductListUseCase
+    required this.addProductToShoppingCartUseCase, 
+    required this.getProductListUseCase,
+    required this.getShoppingCartInfoUseCase
   });
 
 
@@ -27,7 +33,9 @@ class CategoryProductsScreen extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => CategoryProductsProvider(
         categoryId: categoryId!,
-        getProductListUseCase: getProductListUseCase
+        getProductListUseCase: getProductListUseCase,
+        addProductToShoppingCartUseCase: addProductToShoppingCartUseCase,
+        getShoppingCartInfoUseCase: getShoppingCartInfoUseCase
       ),
       child: Scaffold(
         appBar: CustomAppBar(title: categoryName!),
@@ -65,7 +73,12 @@ class ScreenWidget extends StatelessWidget {
             childAspectRatio: 2/4,
           ),
           itemBuilder: (context, index) {
-            return ProductsCategoryCardWidget(product: categoryProductsProvider.products[index]);
+            return ProductsCategoryCardWidget(
+              product: categoryProductsProvider.products[index],
+              addToShoppingCardFunction: (productToAdd){
+                categoryProductsProvider.addProductToShoppingCart(productToAdd);
+              } 
+            );
           },
         ),
       );      
