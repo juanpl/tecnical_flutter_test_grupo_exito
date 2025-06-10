@@ -63,23 +63,24 @@ class ProductsAPIsSourceImpl implements ProductsRemoteDataSource {
 
   @override
   Future<List<ProductModel>> getProductList(int categoryId) async {
+
     try {
       final resp = await dio.get('https://api.escuelajs.co/api/v1/products/?categoryId=$categoryId&limit=5&offset=0');
       final products = (resp.data as List)
           .map((json) => ProductModel.fromJson(json))
           .toList();
-      return products;  
+      return products; 
 
     } on DioException catch (e) {
         if (e.response?.statusCode != null &&
             e.response!.statusCode! >= 500 &&
             e.response!.statusCode! < 600) {
-          throw Left(ServerFailure());
+          throw ServerFailure();
         } else {
-          throw Left(NetworkFailure());
+          throw NetworkFailure();
         }
     } catch (e) {
-      throw Left(UnexpectedError());
+      throw UnexpectedError();
     }
   }
   

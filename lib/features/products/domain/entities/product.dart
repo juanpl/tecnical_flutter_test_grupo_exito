@@ -6,7 +6,7 @@ class Product {
     final String description;
     final String image;
     final String category;
-    final double price;
+    final int price;
 
     Product({
         required this.productId,

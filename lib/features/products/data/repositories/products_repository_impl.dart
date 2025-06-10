@@ -91,6 +91,7 @@ class ProductsRepositoryImpl extends ProductsRepository{
 
   @override
   Future<Either<Failure, List<Product>>> getProductList(int categoryId) async {
+    
     try {
       final List<Product> products = await productsRemoteDataSource.getProductList(categoryId);
       return Right(products); 
